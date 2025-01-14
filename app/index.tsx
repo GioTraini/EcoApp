@@ -12,7 +12,7 @@ type RootStackParamList = {
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
-const DashboardScreen: React.FC = () => {
+const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const router = useRouter();
   return (
@@ -23,6 +23,27 @@ const DashboardScreen: React.FC = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to EcoTrack</Text>
         <Text style={styles.subtitle}>Track your ecological footprint effortlessly</Text>
+
+        <View style={styles.buttonContainer}>
+            <Button
+              mode="contained"
+              icon="login"
+              onPress={() => router.navigate("/login")}
+              style={[styles.button, styles.loginButton]}
+              labelStyle={styles.buttonText}
+            >
+              Login
+            </Button>
+            <Button
+              mode="contained"
+              icon="account-plus"
+              onPress={() => router.navigate("/registration")}
+              style={[styles.button, styles.registerButton]}
+              labelStyle={styles.buttonText}
+            >
+              Register
+            </Button>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -82,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DashboardScreen;
+export default HomeScreen;
