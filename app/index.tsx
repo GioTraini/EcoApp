@@ -1,51 +1,43 @@
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Link, useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';  // Importa LinearGradient di Expo
 import { Button } from 'react-native-paper';
-
-type RootStackParamList = {
-  Login: undefined;
-  Register: undefined;
-};
-
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+import { router } from 'expo-router';
 
 const HomeScreen: React.FC = () => {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
-  const router = useRouter();
   return (
-    <ImageBackground
-      source={{ uri: 'https://www.example.com/eco-background.jpg' }} // Cambia con una tua immagine di sfondo
+    <LinearGradient
+      colors={['#4CAF50', '#2196F3']} // Gradiente verde → blu
       style={styles.background}
     >
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to EcoTrack</Text>
-        <Text style={styles.subtitle}>Track your ecological footprint effortlessly</Text>
+        <Text style={styles.subtitle}>
+          Track your ecological footprint and make a difference!
+        </Text>
 
         <View style={styles.buttonContainer}>
-            <Button
-              mode="contained"
-              icon="login"
-              onPress={() => router.navigate("/login")}
-              style={[styles.button, styles.loginButton]}
-              labelStyle={styles.buttonText}
-            >
-              Login
-            </Button>
-            <Button
-              mode="contained"
-              icon="account-plus"
-              onPress={() => router.navigate("/registration")}
-              style={[styles.button, styles.registerButton]}
-              labelStyle={styles.buttonText}
-            >
-              Register
-            </Button>
+          <Button
+            mode="contained"
+            icon="login"
+            onPress={() => router.navigate("/login")}
+            style={[styles.button, styles.loginButton]}
+            labelStyle={styles.buttonText}
+          >
+            Login
+          </Button>
+          <Button
+            mode="contained"
+            icon="account-plus"
+            onPress={() => router.navigate("/registration")}
+            style={[styles.button, styles.registerButton]}
+            labelStyle={styles.buttonText}
+          >
+            Register
+          </Button>
         </View>
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
 };
 
@@ -56,28 +48,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Aggiungi un overlay scuro per migliorare la leggibilità
-    borderRadius: 10,
     paddingVertical: 40,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Overlay per migliorare la leggibilità
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
+    elevation: 8,
   },
   title: {
-    fontSize: 32,
+    fontSize: 34,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 15,
+    marginBottom: 20,
     textAlign: 'center',
     letterSpacing: 2,
   },
   subtitle: {
     fontSize: 18,
-    color: '#fff',
-    marginBottom: 40,
+    color: '#ddd',
     textAlign: 'center',
-    paddingHorizontal: 20,
+    marginBottom: 40,
+    paddingHorizontal: 10,
   },
   buttonContainer: {
     width: '100%',
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
 });
 

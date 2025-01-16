@@ -7,10 +7,11 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useAuthContext } from '@/utils/authContext';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const { token } = useAuthContext();
   return (
     <Tabs
       screenOptions={{

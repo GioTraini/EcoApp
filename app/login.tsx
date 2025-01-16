@@ -1,7 +1,10 @@
+import SERVER from '@/constants/Api';
+import { useAuthContext } from '@/utils/authContext';
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform, Button } from 'react-native';
-
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient'; // Import for linear gradient
+import { Button } from 'react-native-paper';
 
 interface LoginFormState {
   email: string;
@@ -10,96 +13,118 @@ interface LoginFormState {
 
 const LoginScreen: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormState>({
-    email: 'maxpopovschii@gmail.com',
-    password: 'Dom200598!',
+    email: '',
+    password: '',
   });
-  const router = useRouter()
+  const router = useRouter();
+  const { login } = useAuthContext();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
+  const handleChange = (name: keyof LoginFormState, value: string) => {
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+
+  const handleLogin = async () => {
     try {
-      const response = await fetch("http://172.20.10.6:8000/auth/login", {
+      const response = await fetch(`${SERVER}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify( formData ),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) throw new Error("Errore nei dati.");
 
       const token = await response.text();
-      console.log(token)
+      login(token);
       router.navigate("/(tabs)");
     } catch (error) {
-      alert((error as Error).message);
+      Alert.alert('Login Failed', (error as Error).message);
     }
   };
+
   return (
-    <KeyboardAvoidingView
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    style={styles.container}>
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.inner}>
-        <Text style={styles.header}>Sign In</Text>
-        <TextInput 
-          placeholder="Email" 
-          placeholderTextColor="#aaa" 
-          style={styles.textInput} 
-          keyboardType="email-address" 
-          autoCapitalize="none"
-          onChange={() => handleChange} 
-        />
-        <TextInput 
-          placeholder="Password" 
-          placeholderTextColor="#aaa" 
-          style={styles.textInput} 
-          secureTextEntry
-          onChange={() => handleChange}
-        />
-        <View style={styles.btnContainer}>
-          <Button title="Submit" color="#000" onPress={() => handleLogin} />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
-  </KeyboardAvoidingView>
+    <LinearGradient
+      colors={['#4CAF50', '#2196F3']} // Green to Blue gradient
+      style={styles.container}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.inner}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.formContainer}>
+            <Text style={styles.header}>Sign In</Text>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#aaa"
+              style={styles.textInput}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              value={formData.email}
+              onChangeText={(text) => handleChange('email', text)} // Update email
+            />
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor="#aaa"
+              style={styles.textInput}
+              secureTextEntry
+              value={formData.password}
+              onChangeText={(text) => handleChange('password', text)} // Update password
+            />
+
+            <View style={styles.btnContainer}>
+              <Button onPress={handleLogin} >Submit</Button>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', // Sfondo scuro
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   inner: {
-    padding: 24,
     flex: 1,
+    width: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  formContainer: {
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Overlay background for the form
+    borderRadius: 10,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
     fontSize: 36,
     marginBottom: 24,
-    color: '#4caf50', // Colore verde per il contrasto
+    color: '#fff', // White header text
     fontWeight: 'bold',
     textAlign: 'center',
   },
   textInput: {
+    width: '100%',
     height: 50,
-    borderColor: '#4caf50', // Bordo verde per il tema scuro
+    borderColor: '#fff', // White border for text inputs
     borderBottomWidth: 2,
     marginBottom: 20,
     paddingHorizontal: 8,
     fontSize: 16,
-    color: '#fff', // Testo bianco per leggibilità
+    color: '#fff', // White text color for inputs
   },
   btnContainer: {
+    width: '80%',
     marginTop: 20,
-    backgroundColor: '#4caf50', // Colore verde per il pulsante
+    backgroundColor: '#4caf50', // Green button color
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
@@ -109,12 +134,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  btnText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
 });
-
 
 export default LoginScreen;
