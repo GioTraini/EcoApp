@@ -10,6 +10,7 @@ interface RegFormState {
   surname: string;
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 const RegisterScreen: React.FC = () => {
@@ -18,6 +19,7 @@ const RegisterScreen: React.FC = () => {
     surname: '',
     email: '',
     password: '',
+    passwordConfirm: '',
   });
 
   const router = useRouter();
@@ -31,7 +33,7 @@ const RegisterScreen: React.FC = () => {
 
   const handleReg = async () => {
     try {
-      const response = await fetch(`${SERVER}/auth/registration`, {
+      const response = await fetch(`${SERVER}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -39,9 +41,7 @@ const RegisterScreen: React.FC = () => {
 
       if (!response.ok) throw new Error("Errore nei dati.");
 
-      const token = await response.text();
-      console.log(token);
-      router.navigate("/(tabs)");
+        router.navigate("/login");
     } catch (error) {
       Alert.alert('Registration Failed', (error as Error).message);
     }
@@ -95,7 +95,7 @@ const RegisterScreen: React.FC = () => {
               placeholderTextColor="#aaa"
               style={styles.textInput}
               secureTextEntry
-              value={formData.password}
+              value={formData.passwordConfirm}
               onChangeText={(text) => handleChange('password', text)} // Update confirmation
             />
 
