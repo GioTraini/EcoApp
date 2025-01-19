@@ -1,9 +1,9 @@
+import HomePageComponent from '@/components/HomePageComponent';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import { Button } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type RootStackParamList = {
   Login: undefined;
@@ -15,71 +15,20 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'L
 const DashboardScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const router = useRouter();
+  const userStats = {
+    week: [10, 20, 30, 40, 50, 60, 70], // Dati settimanali
+    month: [150, 200, 180, 220], // Dati mensili
+  };
   return (
-    <ImageBackground
-      source={{ uri: 'https://www.example.com/eco-background.jpg' }} // Cambia con una tua immagine di sfondo
-      style={styles.background}
-    >
-      <View style={styles.container}>
-        <Text style={styles.title}>Welcome to EcoTrack</Text>
-        <Text style={styles.subtitle}>Track your ecological footprint effortlessly</Text>
-      </View>
-    </ImageBackground>
+    <SafeAreaView style={{flex: 1}}>
+      <HomePageComponent
+        userName="Vincent Gottem"
+        avatar="https://example.com/avatar.jpg"
+        statistics={userStats}
+      />
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Aggiungi un overlay scuro per migliorare la leggibilità
-    borderRadius: 10,
-    paddingVertical: 40,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 15,
-    textAlign: 'center',
-    letterSpacing: 2,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#fff',
-    marginBottom: 40,
-    textAlign: 'center',
-    paddingHorizontal: 20,
-  },
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  button: {
-    width: '80%',
-    marginVertical: 12,
-    paddingVertical: 12,
-    borderRadius: 30,
-    elevation: 5,
-  },
-  loginButton: {
-    backgroundColor: '#4CAF50',
-  },
-  registerButton: {
-    backgroundColor: '#2196F3',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: '600',
-  },
-});
 
 export default DashboardScreen;

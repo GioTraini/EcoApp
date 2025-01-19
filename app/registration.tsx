@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
+    height: "95%",
     backgroundColor: 'rgba(0, 0, 0, 0.4)', // Overlay background for the form
     borderRadius: 10,
     padding: 20,

@@ -1,18 +1,53 @@
-import { useAuth } from '@/hooks/useAuth';
-import React, { createContext, useContext, ReactNode } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-interface AuthProviderProps {
-  children: ReactNode;
+
+
+interface AuthContextProps {
+  token: string | null;
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+  } | null;
+  setToken: (token: string | null) => void;
 }
 
-const AuthContext = createContext<ReturnType<typeof useAuth> | undefined>(undefined);
+// Tipo per il componente AuthProvider
+interface AuthProviderProps {
+  children: ReactNode; // Aggiungi 'children' come tipo ReactNode
+}
+
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const auth = useAuth();
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<AuthContextProps['user'] | null>(null);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        // Assicurati che il token contenga le informazioni necessarie
+        setUser({
+          name: decodedToken.name,
+          email: decodedToken.email,
+          avatar: decodedToken.avatar || 'https://example.com/default-avatar.jpg', // Avatar di default se non presente
+        });
+      } catch (error) {
+        console.error('Errore nella decodifica del token:', error);
+      }
+    }
+  }, [token]);
+
+  return (
+    <AuthContext.Provider value={{ token, user, setToken }}>
+      {children} {/* Renderizza i figli qui */}
+    </AuthContext.Provider>
+  );
 };
 
-export const useAuthContext = (): ReturnType<typeof useAuth> => {
+export const useAuthContext = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuthContext must be used within an AuthProvider');

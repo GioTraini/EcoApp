@@ -15,7 +15,15 @@ const HomeScreen: React.FC = () => {
         <Text style={styles.subtitle}>
           Track your ecological footprint and make a difference!
         </Text>
-
+        <Text style={styles.subtitle}>
+          Track your ecological footprint and make a difference!
+        </Text>
+        <Text style={styles.subtitle}>
+          Track your ecological footprint and make a difference!
+        </Text>
+        <Text style={styles.subtitle}>
+          Track your ecological footprint and make a difference!
+        </Text>
         <View style={styles.buttonContainer}>
           <Button
             mode="contained"
@@ -49,6 +57,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 20,
+    height: "80%",
     paddingVertical: 40,
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)', // Overlay per migliorare la leggibilità

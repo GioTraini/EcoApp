@@ -17,7 +17,7 @@ const LoginScreen: React.FC = () => {
     password: '',
   });
   const router = useRouter();
-  const { login } = useAuthContext();
+  const {setToken} = useAuthContext();
 
   const handleChange = (name: keyof LoginFormState, value: string) => {
     setFormData({
@@ -37,7 +37,7 @@ const LoginScreen: React.FC = () => {
       if (!response.ok) throw new Error("Errore nei dati.");
 
       const token = await response.text();
-      login(token);
+      setToken(token);
       router.navigate("/(tabs)");
     } catch (error) {
       Alert.alert('Login Failed', (error as Error).message);
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
+    height: "95%",
     backgroundColor: 'rgba(0, 0, 0, 0.4)', // Overlay background for the form
     borderRadius: 10,
     padding: 20,
