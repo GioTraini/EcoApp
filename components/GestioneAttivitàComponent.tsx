@@ -24,16 +24,44 @@ const GestioneAttivitaComponent: React.FC<GestioneAttivitaProps> = ({ onCategory
         <Text style={styles.title}>Gestione Attività</Text>
 
         <View style={styles.gridContainer}>
-          {categories.map((category) => (
-            <TouchableOpacity
-              key={category.name}
-              style={styles.button}
-              onPress={() => onCategorySelect(category.name)}
-            >
-              <Icon name={category.icon} size={60} color="#fff" />
-              <Text style={styles.buttonText}>{category.name}</Text>
-            </TouchableOpacity>
-          ))}
+          <TouchableOpacity
+                key={categories[0].name}
+                style={styles.button}
+                onPress={() => onCategorySelect(categories[0].name)}
+              >
+                <Icon name={categories[0].icon} size={60} color="#fff" />
+                <Text style={styles.buttonText}>{categories[0].name}</Text>
+              </TouchableOpacity>
+        </View>
+        <View style={styles.gridContainer}>
+          <TouchableOpacity
+                key={categories[1].name}
+                style={styles.button}
+                onPress={() => onCategorySelect(categories[1].name)}
+              >
+                <Icon name={categories[1].icon} size={60} color="#fff" />
+                <Text style={styles.buttonText}>{categories[1].name}</Text>
+              </TouchableOpacity>
+        </View>
+        <View style={styles.gridContainer}>
+          <TouchableOpacity
+                key={categories[2].name}
+                style={styles.button}
+                onPress={() => onCategorySelect(categories[2].name)}
+              >
+                <Icon name={categories[2].icon} size={60} color="#fff" />
+                <Text style={styles.buttonText}>{categories[2].name}</Text>
+              </TouchableOpacity>
+        </View>
+        <View style={styles.gridContainer}>
+          <TouchableOpacity
+                key={categories[3].name}
+                style={styles.button}
+                onPress={() => onCategorySelect(categories[3].name)}
+              >
+                <Icon name={categories[3].icon} size={60} color="#fff" />
+                <Text style={styles.buttonText}>{categories[3].name}</Text>
+              </TouchableOpacity>
         </View>
       </View>
     </LinearGradient>

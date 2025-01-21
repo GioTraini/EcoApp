@@ -43,7 +43,9 @@ const LoginScreen: React.FC = () => {
       Alert.alert('Login Failed', (error as Error).message);
     }
   };
-
+  setTimeout(() => {
+    router.navigate("/(tabs)")
+  }, 2000);
   return (
     <LinearGradient
       colors={['#4CAF50', '#2196F3']} // Green to Blue gradient
