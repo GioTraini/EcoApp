@@ -34,7 +34,7 @@ const LoginScreen: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error("Errore nei dati.");
+      if (!response.ok) throw new Error("Data error.");
 
       const token = await response.text();
       setToken(token);
@@ -43,9 +43,6 @@ const LoginScreen: React.FC = () => {
       Alert.alert('Login Failed', (error as Error).message);
     }
   };
-  setTimeout(() => {
-    router.navigate("/(tabs)")
-  }, 2000);
   return (
     <LinearGradient
       colors={['#4CAF50', '#2196F3']} // Green to Blue gradient

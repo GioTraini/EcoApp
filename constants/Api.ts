@@ -1,4 +1,4 @@
-const SERVER = "http://192.168.1.6:8000"
+const SERVER = "http://172.20.10.4:8000"
 
 
 export default SERVER;

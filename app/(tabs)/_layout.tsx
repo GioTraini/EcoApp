@@ -8,6 +8,7 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useAuthContext } from '@/utils/authContext';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -28,10 +29,10 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
-        name="explore"
+        name="profile"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <MaterialIcons name="account-circle" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -42,10 +43,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="activity"
         options={{
-          title: 'About',
-          tabBarIcon: ({ color }) => <FontAwesome name="search" size={28} color={color} />,
+          title: 'Activity',
+          tabBarIcon: ({ color }) => <AntDesign name="pluscircle" size={24} color={color} />,
         }}
       />
     </Tabs>

@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface GestioneAttivitaProps {
@@ -17,7 +17,7 @@ const GestioneAttivitaComponent: React.FC<GestioneAttivitaProps> = ({ onCategory
 
   return (
     <LinearGradient
-      colors={['#4CAF50', '#2196F3']} 
+      colors={['#4CAF50', '#2196F3']}
       style={styles.gradientBackground}
     >
       <View style={styles.container}>
@@ -75,8 +75,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
+    flexDirection:'row',
+    flexWrap:'wrap',
   },
   title: {
     fontSize: 24,
@@ -86,13 +87,14 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    margin : 5,
+    alignSelf :'center',
+    justifyContent:'center',
   },
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    width: 145,
-    height: 145,
+    width: 130,
+    height: 130,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',

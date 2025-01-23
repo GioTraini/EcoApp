@@ -43,7 +43,7 @@ export default function TabThirdScreen() {
       {/* Transportation Modal */}
       <TransportationModal
         visible={isModalVisible}
-        onClose={() => setModalVisible(false)}
+        onClose={() => setIsModalVisible(false)}
       />
     </SafeAreaView>
   );
