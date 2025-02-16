@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ token, user, setToken }}>
-      {children} {/* Renderizza i figli qui */}
+      {children} 
     </AuthContext.Provider>
   );
 };
