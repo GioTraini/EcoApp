@@ -1,12 +1,11 @@
-import { Alert} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import GestioneAttivitaComponent from '@/components/GestioneAttivitàComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
-import AddActivityModal from '@/components/AddActivityModal';
-import TransportationModal from '@/components/TransportModal';
 
 export default function TabThirdScreen() {
+  const [selectedLocation, setSelectedLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [activities, setActivities] = useState<
@@ -23,28 +22,39 @@ export default function TabThirdScreen() {
   };
 
   const handleCategorySelect = (category: string) => {
-    setModalVisible(true);
-    if (category == "Trasporti") {
-      setModalVisible(false);
-      setIsModalVisible(true);
-    }
     setCategory(category);
   };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <GestioneAttivitaComponent onCategorySelect={handleCategorySelect} />
-      <AddActivityModal
-        category={category}
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onSave={handleAddActivity}
-      />
-      {/* Transportation Modal */}
-      <TransportationModal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-      />
     </SafeAreaView>
   );
 }
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 50,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  map: {
+    width: '100%',
+    height: 400,
+  },
+  footer: {
+    marginTop: 20,
+  },
+  buttons: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+});

@@ -35,7 +35,6 @@ const TransportModal: React.FC<TransportModalProps> = ({ visible, onClose }) => 
     <Modal visible={visible} animationType="slide">
       <View style={styles.container}>
         <Text style={styles.title}>Add Transport Activity</Text>
-        {Platform.OS == 'ios' || Platform.OS == 'android' && MapView && (
           <MapView
             style={styles.map}
             initialRegion={{
@@ -48,8 +47,6 @@ const TransportModal: React.FC<TransportModalProps> = ({ visible, onClose }) => 
           >
             {selectedLocation && <Marker coordinate={selectedLocation} title="Selected Location" />}
           </MapView>
-        )}
-
         {/* Additional modal content */}
         <View style={styles.footer}>
           <Text>Select a transport activity:</Text>
