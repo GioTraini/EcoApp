@@ -110,36 +110,110 @@ const RegisterScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  inner: { flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center', padding: 24 },
-  formContainer: { 
-    width: '100%',
-    height: "95%",
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: 12,
-    padding: 20,
-    alignItems: 'center',
+  container: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  header: { fontSize: 36, color: '#fff', fontWeight: 'bold', marginBottom: 30 },
+  inner: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  formContainer: {
+    width: '90%',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 15,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+  },
+  header: {
+    fontSize: 28,
+    color: '#333',
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
   textInput: {
     width: '100%',
     height: 50,
-    borderColor: '#fff', // White border for text inputs
-    borderBottomWidth: 2,
-    marginBottom: 20,
-    paddingHorizontal: 8,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    paddingHorizontal: 12,
     fontSize: 16,
-    color: '#fff', // White text color for inputs
+    color: '#333',
+    marginBottom: 15,
   },
-  errorText: { color: 'red', fontSize: 14, marginBottom: 10 },
-  button: { width: '100%', backgroundColor: '#4CAF50', marginVertical: 10 },
-  loginLink: { color: '#fff', fontSize: 16, marginTop: 20, textDecorationLine: 'underline' },
-  buttonContainer: { flexDirection: 'row', justifyContent: 'space-between', width: '100%' },
-  backButton: { flex: 1, marginRight: 5 },
-  modalContainer: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'center', alignItems: 'center' },
-  modalContent: { width: 300, padding: 20, backgroundColor: '#fff', borderRadius: 10, alignItems: 'center' },
-  modalHeader: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 }
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#4CAF50',
+    borderRadius: 8,
+    paddingVertical: 10,
+    marginVertical: 10,
+  },
+  loginLink: {
+    color: '#4CAF50',
+    fontSize: 16,
+    marginTop: 15,
+    textDecorationLine: 'underline',
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '85%',
+    padding: 25,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+  },
+  modalHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#333',
+  },
+  modalTextInput: {
+    width: '100%',
+    height: 45,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 15,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  backButton: {
+    flex: 1,
+    marginRight: 10,
+    backgroundColor: '#ccc',
+    borderRadius: 8,
+  },
 });
+
 
 export default RegisterScreen;
