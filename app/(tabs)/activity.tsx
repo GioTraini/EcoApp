@@ -3,11 +3,10 @@ import { StyleSheet } from 'react-native';
 import GestioneAttivitaComponent from '@/components/GestioneAttivitàComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import CategoryModal from '@/components/modals/CategoryModal';
 
 export default function TabThirdScreen() {
-  const [selectedLocation, setSelectedLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [activities, setActivities] = useState<
     { name: string; consumption: string; date: Date }[]
   >([]);
@@ -27,34 +26,11 @@ export default function TabThirdScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <GestioneAttivitaComponent onCategorySelect={handleCategorySelect} />
+      <CategoryModal
+        visible={modalVisible}
+        category={category}
+        onClose={() => setModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingTop: 50,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  map: {
-    width: '100%',
-    height: 400,
-  },
-  footer: {
-    marginTop: 20,
-  },
-  buttons: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-});

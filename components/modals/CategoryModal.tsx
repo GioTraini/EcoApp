@@ -8,7 +8,7 @@ import { OtherComponent } from '../OtherComponent';
 
 interface CategoryModalProps {
   visible: boolean;
-  category: 'transport' | 'home' | 'food' | 'other';
+  category: string;
   onClose: () => void;
 }
 
@@ -32,7 +32,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ visible, category, onClos
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.header}>{category.toUpperCase()}</Text>
+          <Text style={styles.header}>{category?.toUpperCase()}</Text>
           {renderCategoryContent()}
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <Text style={styles.closeText}>Close</Text>

@@ -3,17 +3,15 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 interface ProfileProps {
-  name: string;
+  fullName: string;
   email: string;
-  bio?: string;
   profilePicture?: string;
   onEditProfile: () => void;
 }
 
 const ProfilePage: React.FC<ProfileProps> = ({
-  name,
+  fullName,
   email,
-  bio = "No bio available",
   profilePicture = "https://via.placeholder.com/150",
   onEditProfile,
 }) => {
@@ -24,9 +22,8 @@ const ProfilePage: React.FC<ProfileProps> = ({
     >
       <View style={styles.container}>
         <Image source={{ uri: profilePicture }} style={styles.profileImage} />
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{fullName}</Text>
         <Text style={styles.email}>{email}</Text>
-        <Text style={styles.bio}>{bio}</Text>
         <TouchableOpacity style={styles.editButton} onPress={onEditProfile}>
           <Text style={styles.editButtonText}>Edit Profile</Text>
         </TouchableOpacity>

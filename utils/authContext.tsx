@@ -6,7 +6,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 interface AuthContextProps {
   token: string | null;
   user: {
-    name: string;
+    fullName: string;
     email: string;
     avatar: string;
   } | null;
@@ -30,9 +30,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const decodedToken: any = jwtDecode(token);
         // Assicurati che il token contenga le informazioni necessarie
         setUser({
-          name: decodedToken.name,
+          fullName: decodedToken.name,
           email: decodedToken.email,
-          avatar: decodedToken.avatar || 'https://example.com/default-avatar.jpg', // Avatar di default se non presente
+          avatar: decodedToken.avatar || 'https://gravatar.com/avatar/550b2b96687c4db387aa4350676170dd?s=400&d=robohash&r=x', // Avatar di default se non presente
         });
       } catch (error) {
         console.error('Errore nella decodifica del token:', error);
