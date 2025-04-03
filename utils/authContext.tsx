@@ -6,7 +6,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 interface AuthContextProps {
   token: string | null;
   user: {
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     avatar: string;
   } | null;
@@ -30,7 +31,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const decodedToken: any = jwtDecode(token);
         // Assicurati che il token contenga le informazioni necessarie
         setUser({
-          fullName: decodedToken.name,
+          firstName: decodedToken.firstName,
+          lastName: decodedToken.lastName,
           email: decodedToken.email,
           avatar: decodedToken.avatar || 'https://gravatar.com/avatar/550b2b96687c4db387aa4350676170dd?s=400&d=robohash&r=x', // Avatar di default se non presente
         });

@@ -1,28 +1,36 @@
 import SERVER from '@/constants/Api';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { 
-  View, Text, TextInput, TouchableWithoutFeedback, Keyboard, 
-  StyleSheet, Alert, KeyboardAvoidingView, Platform, Modal, TouchableOpacity
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  StyleSheet,
+  Text, TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Button } from 'react-native-paper';
 
 interface RegFormState {
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password: string;
+  passwordHash: string;
   passwordConfirm: string;
 }
 
 const RegisterScreen = () => {
   const [formData, setFormData] = useState<RegFormState>({
-    name: '',
-    surname: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
+    firstName: 'Giovanni',
+    lastName: 'Traini',
+    email: 'Giocrew09@gmail.com',
+    passwordHash: 'Giovannitraini1995!',
+    passwordConfirm: 'Giovannitraini1995!',
   });
   const [otp, setOtp] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,12 +45,12 @@ const RegisterScreen = () => {
   };
 
   const handleSubmit = async () => {
-    const { name, surname, email, password, passwordConfirm } = formData;
-    if (!name || !surname || !email || !password || !passwordConfirm) {
+    const { firstName, lastName, email, passwordHash, passwordConfirm } = formData;
+    if (!firstName || !lastName || !email || !passwordHash || !passwordConfirm) {
       setError('All fields are required.');
       return;
     }
-    if (password !== passwordConfirm) {
+    if (passwordHash !== passwordConfirm) {
       setError('Passwords do not match.');
       return;
     }
@@ -63,7 +71,7 @@ const RegisterScreen = () => {
       const response = await fetch(`${SERVER}/auth/verify-otp?otp=${otp}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({...formData})
       });
       if (!response.ok) throw new Error(await response.text());
       Alert.alert('Success', 'OTP Verified Successfully!');
@@ -81,10 +89,10 @@ const RegisterScreen = () => {
           <View style={styles.formContainer}>
             <Text style={styles.header}>Sign Up</Text>
             {error && <Text style={styles.errorText}>{error}</Text>}
-            <TextInput placeholder="Name" style={styles.textInput} value={formData.name} onChangeText={(text) => handleChange('name', text)} placeholderTextColor="#aaa"/>
-            <TextInput placeholder="Surname" style={styles.textInput} value={formData.surname} onChangeText={(text) => handleChange('surname', text)} placeholderTextColor="#aaa"/>
+            <TextInput placeholder="Name" style={styles.textInput} value={formData.firstName} onChangeText={(text) => handleChange('firstName', text)} placeholderTextColor="#aaa"/>
+            <TextInput placeholder="Surname" style={styles.textInput} value={formData.lastName} onChangeText={(text) => handleChange('lastName', text)} placeholderTextColor="#aaa"/>
             <TextInput placeholder="Email" style={styles.textInput} keyboardType="email-address" autoCapitalize="none" value={formData.email} onChangeText={(text) => handleChange('email', text)} placeholderTextColor="#aaa"/>
-            <TextInput placeholder="Password" style={styles.textInput} secureTextEntry value={formData.password} onChangeText={(text) => handleChange('password', text)} placeholderTextColor="#aaa"/>
+            <TextInput placeholder="Password" style={styles.textInput} secureTextEntry value={formData.passwordHash} onChangeText={(text) => handleChange('passwordHash', text)} placeholderTextColor="#aaa"/>
             <TextInput placeholder="Confirm Password" style={styles.textInput} secureTextEntry value={formData.passwordConfirm} onChangeText={(text) => handleChange('passwordConfirm', text)} placeholderTextColor="#aaa"/>
             <Button mode="contained" onPress={handleSubmit} style={styles.button}>Sign Up</Button>
             <TouchableOpacity onPress={() => router.navigate('/login')}>
@@ -100,7 +108,7 @@ const RegisterScreen = () => {
             <TextInput style={styles.textInput} placeholder="Enter OTP" keyboardType="numeric" value={otp} onChangeText={setOtp} />
             <View style={styles.buttonContainer}>
               <Button mode="outlined" onPress={() => setModalVisible(false)} style={styles.backButton}>Back</Button>
-              <Button mode="contained" onPress={verifyOtp} style={styles.button}>Verify</Button>
+              <Button mode="contained" onPress={verifyOtp} style={styles.buttonVerify}>Verify</Button>
             </View>
           </View>
         </View>
@@ -213,6 +221,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     borderRadius: 8,
   },
+  buttonVerify: {
+    flex: 1,
+    marginRight: 10,
+    backgroundColor: '#4CAF50',
+    borderRadius: 8,
+  }
 });
 
 

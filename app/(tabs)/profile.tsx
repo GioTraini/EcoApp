@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Button, SafeAreaView, TextInput, View, StyleSheet, Text, TouchableOpacity, Alert} from 'react-native';
-import ProfilePage from '@/components/ProfilePage';
-import { useAuthContext } from '@/utils/authContext';
 import CustomModal from '@/components/modals/ReusableModal';
+import ProfilePage from '@/components/ProfilePage';
+import SERVER from '@/constants/Api';
+import { useAuthContext } from '@/utils/authContext';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 interface FormState {
-  fullname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   currentPassword: string;
   newPassword: string;
@@ -16,13 +18,39 @@ interface FormState {
 export default function TabTwoScreen() {
   const { user } = useAuthContext();
   const [formdData, setFormdData] = useState<FormState>({
-    fullname: user?.fullName || '',
+    firstName: '',
+    lastName:  '',
     email: user?.email || '',
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   })
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleRequest = async () => {
+    try {
+      const response = await fetch(`${SERVER}/api/users/${user?.email}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) throw new Error("" + response.status);
+      
+
+      const info = await response.json();
+      console.log(info)
+      setFormdData({
+        ...formdData,
+        firstName: info.user.firstName,
+        lastName: info.user.lastName
+      })
+    } catch (error) {
+      Alert.alert('Request error', (error as Error).message);
+    }
+  };
+  useEffect(() => {
+    handleRequest();
+  }, [])
 
   const handleChange = (name: keyof FormState, value: string) => {
     setFormdData({
@@ -32,7 +60,7 @@ export default function TabTwoScreen() {
   };
 
   const handleSubmit = () => {
-    const { fullname, email, currentPassword, newPassword, confirmPassword } = formdData;
+    const { firstName, lastName, email, currentPassword, newPassword, confirmPassword } = formdData;
     if (!currentPassword || !newPassword || !confirmPassword) {
       Alert.alert("Error", "All fields are required.");
       return;
@@ -56,7 +84,7 @@ export default function TabTwoScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ProfilePage
-        fullName={user!.fullName}
+        fullName={user!.firstName + ''+ user!.lastName }
         email={user!.email}
         profilePicture={user?.avatar}
         onEditProfile={handleSubmit}
@@ -67,8 +95,15 @@ export default function TabTwoScreen() {
 
         <TextInput
           style={styles.input}
-          value={formdData.fullname}
-          onChangeText={(text) => handleChange('fullname', text)}
+          value={formdData.firstName}
+          onChangeText={(text) => handleChange('firstName', text)}
+          placeholder="Name"
+        />
+
+<TextInput
+          style={styles.input}
+          value={formdData.lastName}
+          onChangeText={(text) => handleChange('lastName', text)}
           placeholder="Name"
         />
 

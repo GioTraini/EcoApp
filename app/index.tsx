@@ -13,10 +13,10 @@ const HomeScreen: React.FC = () => {
       <View style={styles.container}>
         {/* Logo Section */}
         <View style={styles.logoContainer}>
-          <Image 
+          {/* <Image
             source={require('./assets/logo.png')} // Add a logo image if available
             style={styles.logo}
-          />
+          /> */}
         </View>
 
         <Text style={styles.title}>Welcome to EcoTrack</Text>
@@ -25,7 +25,7 @@ const HomeScreen: React.FC = () => {
         </Text>
         
         <Text style={styles.infoText}>
-          Join our community to monitor your eco-impact. Reduce waste, track consumption, and make eco-friendly choices. 
+          Join our community to monitor your eco-impact. Reduce waste, track consumption, and make eco-friendly choices.
         </Text>
         
         {/* Buttons */}
