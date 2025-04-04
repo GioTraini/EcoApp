@@ -1,12 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { red } from 'react-native-reanimated/lib/typescript/Colors';
 
 interface ProfileProps {
   fullName: string;
   email: string;
   profilePicture?: string;
   onEditProfile: () => void;
+  onLogout: () => void;
 }
 
 const ProfilePage: React.FC<ProfileProps> = ({
@@ -14,6 +16,7 @@ const ProfilePage: React.FC<ProfileProps> = ({
   email,
   profilePicture = "https://via.placeholder.com/150",
   onEditProfile,
+  onLogout,
 }) => {
   return (
     <LinearGradient
@@ -26,6 +29,9 @@ const ProfilePage: React.FC<ProfileProps> = ({
         <Text style={styles.email}>{email}</Text>
         <TouchableOpacity style={styles.editButton} onPress={onEditProfile}>
           <Text style={styles.editButtonText}>Edit Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.logOutButton} onPress={onLogout}>
+          <Text style={styles.logOutButtonText}>Logout</Text>
         </TouchableOpacity>
       </View>
   </LinearGradient>
@@ -72,6 +78,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   editButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  logOutButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#d80101',
+    borderRadius: 5,
+  },
+  logOutButtonText: {
     color: '#fff',
     fontWeight: 'bold',
   },
