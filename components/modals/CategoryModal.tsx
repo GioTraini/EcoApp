@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Dimensions, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FoodComponent } from '../FoodComponent';
 import { HomeComponent } from '../HomeComponent';
 import { OtherComponent } from '../OtherComponent';
@@ -11,6 +11,9 @@ interface CategoryModalProps {
   category: string;
   onClose: () => void;
 }
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 const CategoryModal: React.FC<CategoryModalProps> = ({ visible, category, onClose }) => {
   const renderCategoryContent = () => {
@@ -30,15 +33,20 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ visible, category, onClos
 
   return (
     <Modal visible={visible} transparent animationType="fade">
-      <SafeAreaView style={styles.overlay}>
+      <View style={styles.overlay}>
         <ScrollView style={styles.modalContent}>
           <Text style={styles.header}>{category?.toUpperCase()}</Text>
           {renderCategoryContent()}
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeText}>Close</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+            <TouchableOpacity style={styles.addButton} onPress={() => {}}>
+              <Text style={styles.addText}>Aggiungi</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <Text style={styles.closeText}>Chiudi</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </Modal>
   );
 };
@@ -52,18 +60,32 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '95%',
+    maxHeight: windowHeight * 0.75,
     backgroundColor: 'white',
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
   },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    alignSelf: 'center',
+  },
+  addButton: {
+    width: '48%',
+    alignItems: 'center',
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    borderRadius: 5,
+  },
+  addText: {
+    color: 'white',
+    fontSize: 16,
   },
   closeButton: {
-    marginTop: 20,
-    backgroundColor: '#4CAF50',
+    width: '48%',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
     padding: 10,
     borderRadius: 5,
   },

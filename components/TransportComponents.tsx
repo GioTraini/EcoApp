@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native';
-import MapView, { Marker, Polyline, MapPressEvent } from 'react-native-maps';
-import { Picker } from '@react-native-picker/picker';
+import MapView, { Marker, Polyline } from 'react-native-maps';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export const TransportComponent = () => {
-  const [startLocation, setStartLocation] = useState<any>(null);
-  const [endLocation, setEndLocation] = useState<any>(null);
-  const [routeType, setRouteType] = useState<'one-way' | 'round-trip'>('one-way');
+  const [startLocation, setStartLocation] = useState(null);
+  const [endLocation, setEndLocation] = useState(null);
+  const [routeType, setRouteType] = useState('one-way');
+  
+  // Stati per il dropdown-picker
+  const [open, setOpen] = useState(false);
   const [transportType, setTransportType] = useState('car');
+  const [transportItems, setTransportItems] = useState([
+    { label: 'Auto', value: 'car' },
+    { label: 'Bicicletta', value: 'bike' },
+    { label: 'Camminare', value: 'walk' },
+    { label: 'Trasporto Pubblico', value: 'public' },
+  ]);
 
-  const handleMapPress = (e: MapPressEvent) => {
+  const handleMapPress = (e) => {
     const { coordinate } = e.nativeEvent;
     if (!startLocation) {
       setStartLocation(coordinate);
@@ -20,7 +29,7 @@ export const TransportComponent = () => {
     }
   };
 
-  const handleRouteTypeChange = (type: 'one-way' | 'round-trip') => {
+  const handleRouteTypeChange = (type) => {
     setRouteType(type);
   };
 
@@ -32,21 +41,19 @@ export const TransportComponent = () => {
   };
 
   return (
-
     <View style={styles.container}>
-
-    <View style={styles.buttonContainer}>
-            <Button
-              title="Sola Andata"
-              onPress={() => handleRouteTypeChange('one-way')}
-              color={routeType === 'one-way' ? 'blue' : 'gray'}
-            />
-            <Button
-              title="Andata/Ritorno"
-              onPress={() => handleRouteTypeChange('round-trip')}
-              color={routeType === 'round-trip' ? 'blue' : 'gray'}
-            />
-    </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Sola Andata"
+          onPress={() => handleRouteTypeChange('one-way')}
+          color={routeType === 'one-way' ? '#2196F3' : 'gray'}
+        />
+        <Button
+          title="Andata/Ritorno"
+          onPress={() => handleRouteTypeChange('round-trip')}
+          color={routeType === 'round-trip' ? '#2196F3' : 'gray'}
+        />
+      </View>
 
       <MapView
         style={styles.map}
@@ -69,39 +76,77 @@ export const TransportComponent = () => {
         )}
       </MapView>
 
-      
-
-      <View style={styles.pickerContainer}>
+      <View style={styles.dropdownContainer}>
         <Text style={styles.pickerLabel}>Scegli il Tipo di Trasporto:</Text>
-        <Picker
-          selectedValue={transportType}
-          onValueChange={(itemValue) => setTransportType(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Auto" value="car" />
-          <Picker.Item label="Bicicletta" value="bike" />
-          <Picker.Item label="Camminare" value="walk" />
-          <Picker.Item label="Trasporto Pubblico" value="public" />
-        </Picker>
+        <DropDownPicker
+          open={open}
+          value={transportType}
+          items={transportItems}
+          setOpen={setOpen}
+          setValue={setTransportType}
+          setItems={setTransportItems}
+          style={styles.dropdown}
+          dropDownContainerStyle={styles.dropdownList}
+          placeholder="Seleziona un tipo di trasporto"
+          listMode="SCROLLVIEW"
+          zIndex={1000}
+        />
       </View>
-
-      <Text style={styles.transportText}>
-        Tipo di trasporto selezionato: {transportType === 'car' ? 'Auto' : transportType === 'bike' ? 'Bicicletta' : transportType === 'walk' ? 'Camminare' : 'Trasporto Pubblico'}
-      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5 },
-  header: { fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  map: { width: '100%', height: 400 },
-  buttonContainer: { flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 },
-  routeText: { fontSize: 18, marginTop: 10 },
-  pickerContainer: { marginTop: 20, width: '80%' },
-  pickerLabel: { fontSize: 16, marginBottom: 10 },
-  picker: { height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 5 },
-  transportText: { fontSize: 18, marginTop: 20, fontWeight: 'bold' },
+  container: { 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    padding: 5
+  },
+  header: { 
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    marginBottom: 10 
+  },
+  map: { 
+    width: '100%', 
+    height: 320,
+    marginBottom: 20
+  },
+  buttonContainer: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-around', 
+    marginTop: 20,
+    marginBottom: 20,
+    width: '100%'
+  },
+  routeText: { 
+    fontSize: 18, 
+    marginTop: 10 
+  },
+  dropdownContainer: { 
+    marginTop: 20, 
+    width: '80%',
+    zIndex: 1000
+  },
+  pickerLabel: { 
+    fontSize: 16, 
+    marginBottom: 10,
+    alignSelf: 'center' 
+  },
+  dropdown: {
+    backgroundColor: '#f5f5f5',
+    borderColor: '#cccccc'
+  },
+  dropdownList: {
+    backgroundColor: '#f5f5f5',
+    borderColor: '#cccccc'
+  },
+  transportText: { 
+    fontSize: 18, 
+    marginTop: 70, 
+    fontWeight: 'bold' 
+  },
 });
 
 export default TransportComponent;

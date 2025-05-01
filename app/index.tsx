@@ -19,7 +19,7 @@ const HomeScreen: React.FC = () => {
           /> */}
         </View>
 
-        <Text style={styles.title}>Welcome to EcoTrack</Text>
+        <Text style={styles.title}>Benvenuti to EcoPasso</Text>
         <Text style={styles.subtitle}>
           Track your ecological footprint and make a difference!
         </Text>

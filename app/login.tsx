@@ -2,7 +2,7 @@ import SERVER from '@/constants/Api';
 import { useAuthContext } from '@/utils/authContext';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'; // Import for linear gradient
 import { Button } from 'react-native-paper';
 
@@ -14,7 +14,7 @@ interface LoginFormState {
 const LoginScreen: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormState>({
     email: 'giocrew09@gmail.com',
-    password: 'GiovanniGiovanni1995!',
+    password: 'Giovannitraini1995!',
   });
   const router = useRouter();
   const {setToken} = useAuthContext();
@@ -71,10 +71,9 @@ const LoginScreen: React.FC = () => {
               value={formData.password}
               onChangeText={(text) => handleChange('password', text)} // Update password
             />
-
-            <View style={styles.btnContainer}>
-              <Button onPress={handleLogin} >Submit</Button>
-            </View>
+            <TouchableOpacity style={styles.btnContainer} onPress={handleLogin}>
+              <Text style={styles.btnText}>Entra</Text>
+            </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -133,6 +132,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    height: 50,
+  },
+  btnText: {
+    color: '#fff', // White text color for button
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
