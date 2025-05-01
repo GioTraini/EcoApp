@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native';
-import MapView, { Marker, Polyline, MapPressEvent } from 'react-native-maps'; // Import MapPressEvent
-import { Picker } from '@react-native-picker/picker'; // Correct import
+import MapView, { Marker, Polyline, MapPressEvent } from 'react-native-maps';
+import { Picker } from '@react-native-picker/picker';
 
 export const TransportComponent = () => {
   const [startLocation, setStartLocation] = useState<any>(null);
@@ -9,7 +9,6 @@ export const TransportComponent = () => {
   const [routeType, setRouteType] = useState<'one-way' | 'round-trip'>('one-way');
   const [transportType, setTransportType] = useState('car');
 
-  // Update to use MapPressEvent
   const handleMapPress = (e: MapPressEvent) => {
     const { coordinate } = e.nativeEvent;
     if (!startLocation) {
@@ -27,10 +26,7 @@ export const TransportComponent = () => {
 
   const getRouteCoordinates = () => {
     if (startLocation && endLocation) {
-      return [
-        startLocation,
-        endLocation,
-      ];
+      return [startLocation, endLocation];
     }
     return [];
   };
@@ -41,13 +37,7 @@ export const TransportComponent = () => {
 
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 37.7749,
-          longitude: -122.4194,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        onPress={handleMapPress} // onPress uses MapPressEvent
+        onPress={handleMapPress}
       >
         {startLocation && (
           <Marker coordinate={startLocation} title="Punto A (Partenza)" />

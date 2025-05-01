@@ -15,13 +15,13 @@ interface CategoryModalProps {
 const CategoryModal: React.FC<CategoryModalProps> = ({ visible, category, onClose }) => {
   const renderCategoryContent = () => {
     switch (category) {
-      case 'transport':
+      case 'Trasporti':
         return <TransportComponent />;
-      case 'home':
+      case 'Casa':
         return <HomeComponent />;
-      case 'food':
+      case 'Alimentazione':
         return <FoodComponent />;
-      case 'other':
+      case 'Altro':
         return <OtherComponent />;
       default:
         return <Text>Unknown category</Text>;

@@ -22,6 +22,7 @@ export default function TabThirdScreen() {
 
   const handleCategorySelect = (category: string) => {
     setCategory(category);
+    setModalVisible(true);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>

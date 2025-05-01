@@ -14,7 +14,7 @@ interface LoginFormState {
 const LoginScreen: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormState>({
     email: 'giocrew09@gmail.com',
-    password: 'GiovanniGiovanni1995!',
+    password: 'Giovannitraini1995!',
   });
   const router = useRouter();
   const {setToken} = useAuthContext();
