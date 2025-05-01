@@ -1,9 +1,9 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { TransportComponent } from '../TransportComponents';
-import { HomeComponent } from '../HomeComponent';
+import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { FoodComponent } from '../FoodComponent';
+import { HomeComponent } from '../HomeComponent';
 import { OtherComponent } from '../OtherComponent';
+import { TransportComponent } from '../TransportComponents';
 
 
 interface CategoryModalProps {
@@ -30,15 +30,15 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ visible, category, onClos
 
   return (
     <Modal visible={visible} transparent animationType="fade">
-      <View style={styles.overlay}>
-        <View style={styles.modalContent}>
+      <SafeAreaView style={styles.overlay}>
+        <ScrollView style={styles.modalContent}>
           <Text style={styles.header}>{category?.toUpperCase()}</Text>
           {renderCategoryContent()}
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <Text style={styles.closeText}>Close</Text>
           </TouchableOpacity>
-        </View>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     </Modal>
   );
 };
@@ -51,11 +51,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    width: '80%',
+    width: '95%',
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
-    alignItems: 'center',
   },
   header: {
     fontSize: 20,

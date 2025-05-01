@@ -32,8 +32,21 @@ export const TransportComponent = () => {
   };
 
   return (
+
     <View style={styles.container}>
-      <Text style={styles.header}>Navigatore per Trasporti</Text>
+
+    <View style={styles.buttonContainer}>
+            <Button
+              title="Sola Andata"
+              onPress={() => handleRouteTypeChange('one-way')}
+              color={routeType === 'one-way' ? 'blue' : 'gray'}
+            />
+            <Button
+              title="Andata/Ritorno"
+              onPress={() => handleRouteTypeChange('round-trip')}
+              color={routeType === 'round-trip' ? 'blue' : 'gray'}
+            />
+    </View>
 
       <MapView
         style={styles.map}
@@ -56,24 +69,7 @@ export const TransportComponent = () => {
         )}
       </MapView>
 
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Sola Andata"
-          onPress={() => handleRouteTypeChange('one-way')}
-          color={routeType === 'one-way' ? 'blue' : 'gray'}
-        />
-        <Button
-          title="Andata/Ritorno"
-          onPress={() => handleRouteTypeChange('round-trip')}
-          color={routeType === 'round-trip' ? 'blue' : 'gray'}
-        />
-      </View>
-
-      {startLocation && endLocation && (
-        <Text style={styles.routeText}>
-          Percorso: {routeType === 'one-way' ? 'Sola Andata' : 'Andata/Ritorno'}
-        </Text>
-      )}
+      
 
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerLabel}>Scegli il Tipo di Trasporto:</Text>
@@ -97,9 +93,9 @@ export const TransportComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20 },
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5 },
   header: { fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  map: { width: '100%', height: 300 },
+  map: { width: '100%', height: 400 },
   buttonContainer: { flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 },
   routeText: { fontSize: 18, marginTop: 10 },
   pickerContainer: { marginTop: 20, width: '80%' },
